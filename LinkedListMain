@@ -1,0 +1,229 @@
+import java.util.*;
+class LinkedListMain
+{
+    public static void main(String[]args)
+    {
+          LinkedList<Character> L=new LinkedList<>();
+          L.insertatbegining('d');
+          L.insertatbegining('a');
+          L.insertatposition(1,'b');
+          L.insertatposition(1,'c');
+          L.insertatend('e');
+          L.insertatend('f');
+         //L.deleteatposition(10);
+          //L.getindexvalue(0);
+           //L.display();
+          L.updateatposition(2,'g');
+          //L.deleteatend();
+          //L.display();
+          //L.searchvalue(9);
+          //L.containsinlist('a');
+          for(char a:L)
+          System.out.print(a+" ");
+    }
+}
+ class LinkedList<T> implements Iterable<T>{
+    Node head;
+    LinkedList()
+    {
+        head=null;
+    }
+    class Node
+    {
+        T data;
+        Node next;
+        Node(T value)
+        {
+            data=value;
+            next=null;
+        }
+    }
+    public void insertatbegining(T value)
+    {
+        if(head==null)
+        {
+            Node newnode=new Node(value);
+            head=newnode;
+        }
+        else
+        {
+            Node newnode=new Node(value);
+            newnode.next=head;
+            head=newnode;
+        }
+    }
+    public void display()
+    {
+        Node temp=head;
+        while(temp!=null)
+        {
+            System.out.print(temp.data+" ");
+            temp=temp.next;
+        }
+    }
+    public void insertatposition(int pos,T value)
+    {
+        if(pos==0)
+        {
+            insertatbegining(value);
+            return;
+        }
+        Node temp=head;
+        for(int i=1;i<pos;i++)
+        {
+            temp=temp.next;
+            if(temp==null)
+            throw new IndexOutOfBoundsException("Invalid position "+pos);
+        }
+        Node newnode=new Node(value);
+        newnode.next=temp.next;
+        temp.next=newnode;
+     }
+     public void deleteatbegining(int pos)
+     {
+        if(head==null)
+        throw new IndexOutOfBoundsException("List is empty ");
+        head=head.next;
+     }
+     public void deleteatposition(int pos)
+     {
+        if(head==null)
+        throw new IndexOutOfBoundsException("List is empty");
+        if(pos==0){
+        deleteatbegining(pos);
+        return;
+        }
+        Node temp=head;
+        Node pre=head;
+        for(int i=1;i<=pos;i++)
+        {
+            pre=temp;
+            temp=temp.next;
+            if(temp==null)
+            throw new IndexOutOfBoundsException("Invalid position "+pos);
+        }
+        pre.next=temp.next;
+     }
+     public void getindexvalue(int pos)
+     {
+        if(head==null)
+        throw new IndexOutOfBoundsException("List is empty");
+        if(pos==0)
+        {System.out.print(head.data);
+        return;}
+        Node temp=head;
+        for(int i=1;i<=pos;i++)
+        {
+            temp=temp.next;
+            if(temp==null)
+            throw new IndexOutOfBoundsException("Index exceeded "+pos);
+        }
+        System.out.print(temp.data);
+     }
+     public void updateatposition(int pos,T value)
+     {
+         if(head==null)
+        throw new IndexOutOfBoundsException("List is empty");
+         Node temp=head;
+        for(int i=1;i<=pos;i++)
+        {
+            temp=temp.next;
+            if(temp==null)
+            throw new IndexOutOfBoundsException("Index exceeded "+pos);
+        }
+        temp.data=value;
+     }
+     public void deleteatend()
+     {
+        if(head==null)
+        throw new IndexOutOfBoundsException("List is empty");
+          Node temp=head;
+         int size=sizeoflist();
+         for(int i=1;i<size-1;i++)
+        {
+            temp=temp.next;
+            if(temp==null)
+            throw new IndexOutOfBoundsException("Index exceeded ");
+        }
+        temp.next=null;
+     }
+     public int sizeoflist()
+     {
+         if(head==null)
+       return 0;
+       Node temp=head;
+       int size=0;
+       while(temp!=null)
+       {
+          size++;
+          temp=temp.next;
+       }
+       return size;
+     }
+     public void insertatend(T value)
+     {
+        if(head==null)
+       { Node newnode=new Node(value);
+        head=newnode;
+       }
+       Node  temp=head;
+       int size=sizeoflist();
+       for(int i=1;i<size;i++)
+       {
+         temp=temp.next;
+            if(temp==null)
+            throw new IndexOutOfBoundsException("Index exceeded ");
+       }
+       Node newnode=new Node(value);
+       temp.next=newnode;
+   }
+   public void searchvalue(T value)
+   {
+    if(head==null)
+        throw new IndexOutOfBoundsException("List is empty");
+    Node temp=head;
+    int size=sizeoflist();
+    for(int i=0;i<size;i++)
+    {
+        if(temp.data==value)
+        {
+            System.out.print(i);
+           return;
+        }
+        temp=temp.next;
+    }
+   System.out.print(-1);
+   }
+   public void containsinlist(T value)
+   {
+    if(head==null)
+        throw new IndexOutOfBoundsException("List is empty");
+       int size=sizeoflist();
+       Node temp=head;
+    for(int i=0;i<size;i++)
+    {
+        if(temp.data==value)
+        {
+            System.out.print("true");
+           return;
+        }
+        temp=temp.next;
+    }
+   System.out.print("false");
+   }
+   public Iterator<T> iterator()
+   {
+    return new Iterator<T>(){
+        Node temp=head;
+        public boolean hasNext(){
+        return temp!=null;
+        }
+         public T next(){
+            T value=temp.data;
+            temp=temp.next;
+            return value;
+             }
+    };
+   }
+
+}
