@@ -1,0 +1,61 @@
+class StackUsingLinkedListMain
+{
+    public static void main(String[]args)
+    {
+      StackUsingLinkedList<Integer> s=new StackUsingLinkedList<>();
+      s.push(1);
+      s.push(2);
+      s.push(3);
+      System.out.println(s.pop());
+        System.out.println(s.pop());
+         System.out.println(s.pop());
+        //System.out.println(s.pop());
+    
+
+    }
+}
+class StackUsingLinkedList<T>{
+  Node top;
+
+    StackUsingLinkedList()
+    {
+        top=null;
+    }
+    class Node{
+        T data;
+        Node next;
+        Node(T value)
+        {
+             data=value;
+             next=null;
+        }
+    }
+
+    public void push(T value)
+    {
+        Node newnode=new Node(value);
+        newnode.next=top;
+        top=newnode;
+
+    }
+   
+    public T pop()
+    {
+        if(top==null)
+        throw new IndexOutOfBoundsException("Stack underflow");
+        T temp=top.data;
+        top=top.next;
+        return temp;
+    }
+    public T peek()
+    {
+        if(top==null)
+        throw new IndexOutOfBoundsException("Stack underflow");
+        return top.data;
+    }
+    public boolean isempty()
+    {
+        return top==null;
+    }
+
+}
