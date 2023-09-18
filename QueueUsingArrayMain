@@ -1,0 +1,45 @@
+class QueueUsingArrayMain
+{
+    public static void main(String[]args)
+    {
+           QueueUsingArray<Integer> q=new QueueUsingArray<>();
+           q.enqueue(1);
+           q.enqueue(2);
+           q.enqueue(3);
+           System.out.println(q.dequeue());
+           System.out.println(q.dequeue());
+           System.out.println(q.dequeue());
+           q.enqueue(4);
+           System.out.println(q.dequeue());
+     }
+}
+class QueueUsingArray<T>
+{
+    int front;
+    int rear;
+    static final int max_size=30;
+    T arr[];
+    QueueUsingArray()
+    {
+        front=-1;
+        rear=-1;
+        arr= (T[])new Object[max_size];
+    }
+
+    public void enqueue(T value)
+    {
+        if(rear==max_size-1)
+        throw new IndexOutOfBoundsException("Queue is full");
+        arr[++rear]=value;
+    }
+    public T dequeue()
+    {
+        if(rear==-1)
+        throw new IndexOutOfBoundsException("Queue is empty");
+        T temp=arr[0];
+        for(int i=1;i<=rear;i++)
+        arr[i-1]=arr[i];
+        rear--;
+        return temp;
+    }
+}
