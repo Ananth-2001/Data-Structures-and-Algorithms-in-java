@@ -1,0 +1,69 @@
+class QueueUsingLinkedListMain
+{
+    public static void main(String[]args)
+    {
+          QueueUsingLinkedList<Integer> q=new QueueUsingLinkedList<>();
+           q.enqueue(1);
+           q.enqueue(2);
+           q.enqueue(3);
+           System.out.println(q.dequeue());
+           System.out.println(q.dequeue());
+           System.out.println(q.dequeue());
+           q.enqueue(4);
+           System.out.println(q.dequeue());
+           q.enqueue(5);
+           System.out.println(q.elementatfront());
+          // System.out.println(q.dequeue());
+
+    }
+}
+class QueueUsingLinkedList<T>
+{
+    Node front;
+    Node rear;
+    QueueUsingLinkedList()
+    {
+        front=null;
+        rear=null;
+    }
+    class Node
+    {
+        T data;
+        Node next;
+        Node(T value)
+        {
+           data=value;
+           next=null;
+        }
+    }
+    public void enqueue(T value)
+    {
+        Node newnode=new Node(value);
+        if(front==null)
+        front=newnode;
+        else
+        rear.next=newnode;
+        rear=newnode;
+    }
+    public T dequeue()
+    {
+        if(front==null)
+        throw new IndexOutOfBoundsException("Queue is empty");
+        T temp=front.data;
+        front=front.next;
+        if(front==null)
+        rear=null;
+        return  temp;
+    }
+    public boolean isempty()
+    {
+        return front==null;
+    }
+    public T elementatfront()
+    {
+        if(front==null)
+        throw new IndexOutOfBoundsException("Queue is empty");
+        return front.data;
+    }
+
+}
