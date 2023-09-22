@@ -1,0 +1,33 @@
+import java.util.*;
+class BubblesortMain
+{
+    public static void main(String[]args)
+    {
+         int arr[]={8,7,2,9,0,1,4,6,3};
+        Sort1.bubblesort(arr);
+        System.out.print(Arrays.toString(arr));
+
+    }
+}
+class Sort1
+{
+    public static void bubblesort(int arr[])
+    {
+        for(int i=1;i<arr.length;i++)
+        {
+            boolean s=false;
+            for(int j=0;j<arr.length-i;j++)
+            {
+                if(arr[j]>arr[j+1])
+                {
+                    s=true;
+                    int temp=arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=temp;
+                }
+            }
+            if(!s)
+            break;
+        }
+    }
+}
