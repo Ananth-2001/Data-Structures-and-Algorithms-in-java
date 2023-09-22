@@ -1,0 +1,77 @@
+import java.util.*;
+class  MergeSortMain
+{
+    public static void main(String[]args)
+    {
+         int arr[]={8,7,2,9,0,1,4,6,3};
+        arr=Sort3.mergesort(arr);
+        System.out.print(Arrays.toString(arr));
+        System.out.println();
+        Sort3.mergesort1(arr,0,arr.length);
+        System.out.print(Arrays.toString(arr));
+
+    }
+}
+class Sort3
+{
+    public static int [] mergesort(int arr[])
+    {
+        if(arr.length==1)
+        return arr;
+
+        int mid=arr.length/2;
+
+        int left[]=mergesort(Arrays.copyOfRange(arr,0,mid));
+        int right[]=mergesort(Arrays.copyOfRange(arr,mid,arr.length));
+
+        return merge(left,right);
+    }
+    public static int [] merge(int first[],int second[] )
+    {
+        int n[]=new int[first.length+second.length];
+         int i=0,j=0,k=0;
+         while(i<first.length&&j<second.length)
+         {
+            if(first[i]<second[j])
+            n[k++]=first[i++];
+            else
+            n[k++]=second[j++];
+         }
+         while(i<first.length)
+         n[k++]=first[i++];
+         while(j<second.length)
+         n[k++]=second[j++];
+
+         return n;
+    }
+     public static void mergesort1(int arr[],int start,int end)
+    {
+        if(end-start==1)
+        return ;                                        
+        int mid=(end+start)/2;
+
+        mergesort1(arr,start,mid);
+        mergesort1(arr,mid,end);
+
+         merge1(arr,start,mid,end);
+    }
+    public static void merge1(int arr[],int s,int m,int e )
+    {
+        int n[]=new int[e-s];
+         int i=s,j=m,k=0;
+         while(i<m&&j<e)
+         {
+            if(arr[i]<arr[j])
+            n[k++]=arr[i++];
+            else
+            n[k++]=arr[j++];
+         }
+         while(i<m)
+         n[k++]=arr[i++];
+         while(j<e)
+         n[k++]=arr[j++];
+
+       for(int l=0;l<n.length;l++)
+       arr[s+l]=n[l];
+    }
+}
